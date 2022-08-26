@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title> In-Hand Object Rotation via Rapid Motor Adaptation </title>
+    <title> Rapidly Adapting Quadcopter Controllers: One Policy to Fly Them All </title>
 
     <link href="res/css/bootstrap.min.css" rel="stylesheet">
 
@@ -74,116 +74,210 @@
 <div class="jumbotron">
     <div class="container">
 
-        <center><span style="font-size:42px"> In-Hand Object Rotation via Rapid Motor Adaptation </span></center>
+        <center><span style="font-size:42px"> Rapidly Adapting Quadcopter Controllers:</br>One Policy to Fly Them All </span></center> 
         <div class="gap-20"></div>
 
         <!--------------------- Author Names --------------------->
         <center>
-            Anonymous CoRL Submission </br>
-            Paper ID: 352
+            Authors TODO </br>
         </center>
     </div>
 </div>
 
 <div class="container">
-
+    
     <center>
-        <img class="img-fluid" width="85%" src="res/results/all.jpg" style="border-radius:10px; border:1px solid black" alt="">
+        <video controls playsinline src="res/results/comprehensive-video.mp4" width="97%"
+                       style="border-radius:10px; border:1px solid black"></video>
     </center>
     <!--------------------- abstract --------------------->
     <div class="gap-30"></div>
     <h2 style="text-align: center"> Abstract </h2>
     <div class="gap-10"></div>
     <center>
-        <p style="width:90%; text-align: justify; white-space: normal;"> Generalized in-hand manipulation has long been
-            an unsolved challenge of robotics.
-            As a small step towards this grand goal, we demonstrate how to design and learn a simple
-            adaptive controller to achieve dynamic in-hand object rotation using only finger tips.
-            The controller is trained entirely in simulation on only cylindrical objects, which then
-            -- without any fine-tuning -- can be directly deployed to a real robot hand to rotate
-            dozens of objects with very different object properties, including sizes, shapes, and weights.
-            This is achieved via rapid online estimation and adaptation of the robot's controller to the
-            object properties, using only proprioception history, without any visual or tactile sensing.
-            Furthermore, natural dynamic gaits of fingers automatically emerge from training the control
-            policy via reinforcement learning, without the need for any heuristic rewards or pre-programming for
-            gaits. </p>
+        <p style="width:90%; text-align: justify; white-space: normal;"> 
+            This paper proposes a universal adaptive low-controller for quadcopters which can be deployed 
+            zero-shot to quadcopters of very different mass and arm lengths, and also shows rapid adaptation 
+            to unknown payloads during runtime. The core algorithmic idea is to learn a single policy which 
+            can adapt online at test time not only to the changes in the payload of the drone, but also adapt 
+            to the robot dynamics as well in the same framework. We achieve this by training a neural network 
+            to estimate a latent representation of the robot and environment parameters, which is used to 
+            condition the behaviour of the low-level controller, also represented as a neural network. We 
+            train both networks exclusively in simulation with the goal of tracking the commands of the 
+            high-level controller and avoiding crashes to the ground. We directly deploy the same controller 
+            trained in the simulation without any modifications on two different quadcopters with differences 
+            in mass, inertia, and maximum motor speed of up to 4 times. In addition, we show rapid adaptation 
+            to sudden and large disturbances (up to 35.7\%) in the mass and inertia of the quadcopters. We 
+            perform an extensive evaluation in both simulation and physical worlds, where we outperform the 
+            traditional low-level controller specifically tuned to each platform individually. 
+        </p>
     </center>
+    
+    <!--------------------- TODO:change src to our drone video --------------------->
+    <hr>
+    <h2 style="text-align: center"> Out-of-Distribution Disturbance Rejection </h2>
+    <div class="gap-10"></div>
+
+    <div class="row no-gutters">
+        <div class="row no-gutters">
+            <div class="col-6">
+                <center> Random Pushes </center>
+                <video playsinline autoplay loop muted src="res/results/experiments/RL-LG-PUSH.MOV" width="97%"
+                       style="border-radius:10px; border:1px solid black"></video>
+            </div>
+            <div class="col-6">
+                <center> Swing Payload </center>
+                <video playsinline autoplay loop muted src="res/results/experiments/RL_LG-SWING.MOV" width="97%"
+                       style="border-radius:10px; border:1px solid black"></video>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-gutters">
+        <div class="row no-gutters">
+            <div class="col-6">
+                <video playsinline autoplay loop muted src="res/results/experiments/RL-SM-PUSH.mov" width="97%"
+                       style="border-radius:10px; border:1px solid black"></video>
+            </div>
+            <div class="col-6">
+                <video playsinline autoplay loop muted src="res/results/experiments/RL-SM-SWING.MOV" width="97%"
+                       style="border-radius:10px; border:1px solid black"></video>
+            </div>
+        </div>
+    </div>
 
     <hr>
-    <h2 style="text-align: center"> Qualitative Results </h2>
+    <h2 style="text-align: center"> Comparison with Baselines  </h2>
 
     <div class="gap-10"></div>
     <center><p style="width:90%; text-align: justify; white-space: normal;">
-        We show that our policy can perform stable and dynamic in-hand object rotations for a large set of diverse objects.
+        All our results are from the exact same policy across all quadcopters, 
+        the baseline LearningToFly (LTF) is a learning-based adaptive baseline, the baseline PID is fitted to each quadcopter separately. 
     </p></center>
 
-    <div class="row no-gutters">
-        <div class="row no-gutters">
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/sake_cup_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/iceball_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/kiwi_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
+    <div class="row no-gutters align-items-center">
+        <div class="col-1">
+            <p> <center>Hover Large </center></p>
+        </div>
+        <div class="col">
+            <center> Ours </center>
+            <video playsinline autoplay loop muted src="res/results/experiments/RL LG Hover/RL-LG-hover.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <center> PID </center>
+            <video playsinline autoplay loop muted src="res/results/experiments/PID-LG-hover.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <center> LTF </center>
+            <video playsinline autoplay loop muted src="res/results/experiments/LTF LG hover/LFT-LG-hover.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
         </div>
     </div>
 
-    <div class="row no-gutters">
-        <div class="row no-gutters">
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/thorn_ball_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/toy_cube_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/reaction_l4_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
+    <div class="row no-gutters  align-items-center">
+        <div class="col-1">
+            <p> <center>Hover Small </center></p>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/RL SM Hover/RL-SM-hover.mov" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/PID-SM-Hover.mov" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/LTF SM hover/LFT-SM-hover.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
         </div>
     </div>
 
-    <div class="row no-gutters">
-        <div class="row no-gutters">
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/shuttlecock_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/toyhole_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/rubik_compressed.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
+    <div class="row no-gutters align-items-center">
+        <div class="col-1">
+            <p> <center>Payload Large</center></p>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/largequad-RL-payload.mov" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/PID_LG_Payload.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/LTF LG payload/LTF-LG-payload.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+    </div>
+
+    <div class="row no-gutters  align-items-center">
+        <div class="col-1">
+            <p> <center>Payload Small</center></p>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/miniquad-RL-payload-cropped.mov" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/PID_SM_PAYLOAD.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/LTF SM payload/LTF-SM-Payload.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+    </div>
+
+    <div class="row no-gutters  align-items-center">
+        <div class="col-1">
+            <p> <center>Inertia Board Large</center></p>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/largequad-RL-inertia.mov" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/PID_LG_INERTIA.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/LTF LG inertia/chose-this-LTF-LG-inertia.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+    </div>
+
+    <div class="row no-gutters  align-items-center">
+        <div class="col-1">
+            <p> <center>Inertia Board Small</center></p>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/miniquad-RL-inertia.mov" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/PID-SM-INERTIA.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
+        </div>
+        <div class="col">
+            <video playsinline autoplay loop muted src="res/results/experiments/LTF SM inertia/LTF-SM-inertia.MOV" width="97%"
+                    style="border-radius:10px; border:1px solid black"></video>
         </div>
     </div>
 
     <div class="gap-20"></div>
-    <h2 style="text-align: center"> <a href="./more.html"> [Click to see More Qualitative Results] </a> </h2>
+    <h4 style="text-align: center"> <a href="./failedBaseline.html"> [Click to see weaker baseline failure] </a> </h4>
 
     <hr>
-    <h2 style="text-align: center"> Adaptation to Different Objects </h2>
-
-    <center><p style="width:90%; text-align: justify; white-space: normal;">
-        We show the extrinsic values are responsive to the object's scale (top left) and mass (top right). This video is played in 2x speed.
-    </p></center>
+    <h2 style="text-align: center"> Evolution of Extrinsics with Incremental Payloads </h2>
 
     <div class="row no-gutters">
         <div class="row no-gutters">
             <div class="col-1">
             </div>
             <div class="col-10">
-                <video playsinline autoplay loop muted src="res/results/transition/transition.mp4" width="97%"
+                <video playsinline autoplay loop muted src="res/results/evolved_mounted.mp4" width="97%"
                        style="border-radius:10px; border:1px solid black"></video>
             </div>
             <div class="col-1">
@@ -192,49 +286,22 @@
     </div>
 
     <hr>
-    <h2 style="text-align: center"> Multi-Axis Rotation Policy </h2>
-
-    <center><p style="width:90%; text-align: justify; white-space: normal;">
-        We also explore the possibility of perform goal-conditioned in-hand object rotation. This policy can perform different axis rotations according to the input.
-    </p></center>
+    <h2 style="text-align: center"> Trajectory Tracking with Payload Applied </h2>
 
     <div class="row no-gutters">
         <div class="row no-gutters">
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/thorn_multi.mp4" width="97%"
+            <div class="col-6">
+                <video playsinline autoplay loop muted src="res/results/experiments/largequad-RL-traj.mp4" width="97%"
                        style="border-radius:10px; border:1px solid black"></video>
             </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/tennis_multi.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-4">
-                <video playsinline autoplay loop muted src="res/results/main/poly_multi.mp4" width="97%"
+            <div class="col-6">
+                <video playsinline autoplay loop muted src="res/results/experiments/miniquad-RL-traj.mp4" width="97%"
                        style="border-radius:10px; border:1px solid black"></video>
             </div>
         </div>
     </div>
 
 
-    <hr>
-    <h2 style="text-align: center"> Different Gaits emerge from Different Training Objects </h2>
-
-    <center><p style="width:90%; text-align: justify; white-space: normal;">
-        Training with Cylindrical Objects is critical to the emergence of a stable and dynamic gait. The following video shows the gait we got if we only use sphere objects for training.
-    </p></center>
-
-    <div class="row no-gutters">
-        <div class="row no-gutters">
-            <div class="col-2">
-            </div>
-            <div class="col-8">
-                <video playsinline autoplay loop muted src="res/results/gait/ball.mp4" width="97%"
-                       style="border-radius:10px; border:1px solid black"></video>
-            </div>
-            <div class="col-2">
-            </div>
-        </div>
-    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
