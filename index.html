@@ -96,7 +96,23 @@
     <div class="gap-10"></div>
     <center>
         <p style="width:90%; text-align: justify; white-space: normal;"> 
-            This paper proposes a universal adaptive low-controller for quadcopters which can be deployed 
+            This paper proposes a universal adaptive controller for quadcopters which can be deployed 
+            zero-shot to quadcopters of very different mass, arm lengths and motor constants, and also 
+            shows rapid adaptation to unknown disturbances during runtime. The core algorithmic idea is 
+            to learn a single policy that can adapt online <i>at test time</i> not only to the disturbances 
+            applied to the drone, but also to the robot dynamics and hardware in the same framework. We 
+            achieve this by training a neural network to estimate a latent representation of the robot 
+            and environment parameters, which is used to condition the behaviour of the controller, 
+            also represented as a neural network. We train both networks exclusively in simulation 
+            with the goal of flying the quadcopters to goal positions and avoiding crashes to the 
+            ground. We directly deploy the same controller trained in the simulation without any 
+            modifications on two quadcopters with differences in mass, inertia, and maximum motor 
+            speed of up to 4 times. In addition, we show rapid adaptation to sudden and large 
+            disturbances (up to 35.7%) in the mass and inertia of the quadcopters. We perform an 
+            extensive evaluation in both simulation and physical worlds, where we outperform a 
+            state-of-the-art learning-based adaptive controller and a traditional PID controller 
+            specifically tuned to each platform individually. 
+            <!-- This paper proposes a universal adaptive low-controller for quadcopters which can be deployed 
             zero-shot to quadcopters of very different mass and arm lengths, and also shows rapid adaptation 
             to unknown payloads during runtime. The core algorithmic idea is to learn a single policy which 
             can adapt online at test time not only to the changes in the payload of the drone, but also adapt 
@@ -109,7 +125,7 @@
             in mass, inertia, and maximum motor speed of up to 4 times. In addition, we show rapid adaptation 
             to sudden and large disturbances (up to 35.7\%) in the mass and inertia of the quadcopters. We 
             perform an extensive evaluation in both simulation and physical worlds, where we outperform the 
-            traditional low-level controller specifically tuned to each platform individually. 
+            traditional low-level controller specifically tuned to each platform individually.  -->
         </p>
     </center>
     
