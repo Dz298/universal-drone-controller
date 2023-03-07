@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title> A Zero-shot Adaptive Quadcopter Controller </title>
+    <title> Learning a Single Near-hover Position Controller for Vastly Different Quadcopters </title>
 
     <link href="res/css/bootstrap.min.css" rel="stylesheet">
 
@@ -74,7 +74,7 @@
 <div class="jumbotron">
     <div class="container">
 
-        <center><span style="font-size:42px"> A Zero-shot Adaptive Quadcopter Controller </span></center> 
+        <center><span style="font-size:42px"> Learning a Single Near-hover Position Controller <br> for Vastly Different Quadcopters </span></center> 
         <div class="gap-20"></div>
 
         <!--------------------- Author Names --------------------->
@@ -88,7 +88,7 @@
 <div class="container">
     
     <center>
-        <video controls playsinline src="res/results/ICRA23-V7.mp4" width="70%"
+        <video controls playsinline src="res/results/ICRA23-near-hover-controller.mp4" width="70%"
                        style="border-radius:10px; border:1px solid black"></video>
     </center>
     <!--------------------- abstract --------------------->
@@ -97,7 +97,8 @@
     <div class="gap-10"></div>
     <center>
         <p style="width:90%; text-align: justify; white-space: normal;"> 
-            This paper proposes a universal adaptive controller for quadcopters which can be deployed 
+            This paper proposes an adaptive near-hover position controller for quadcopters, which can be deployed to quadcopters of very different mass, size and motor constants, and also shows rapid adaptation to unknown disturbances during runtime. The core algorithmic idea is to learn a single policy that can adapt online at test time not only to the disturbances applied to the drone, but also to the robot dynamics and hardware in the same framework. We achieve this by training a neural network to estimate a latent representation of the robot and environment parameters, which is used to condition the behaviour of the controller, also represented as a neural network. We train both networks exclusively in simulation with the goal of flying the quadcopters to goal positions and avoiding crashes to the ground. We directly deploy the same controller trained in the simulation without any modifications on two quadcopters in the real world with differences in mass, size, motors, and propellers with mass differing by 4.5 times. In addition, we show rapid adaptation to sudden and large disturbances up to one-third of the mass of the quadcopters. We perform an extensive evaluation in both simulation and the physical world, where we outperform a state-of-the-art learning-based adaptive controller and a traditional PID controller specifically tuned to each platform individually. 
+            <!-- This paper proposes a universal adaptive controller for quadcopters which can be deployed 
             zero-shot to quadcopters of very different mass, arm lengths and motor constants, and also 
             shows rapid adaptation to unknown disturbances during runtime. The core algorithmic idea is 
             to learn a single policy that can adapt online <i>at test time</i> not only to the disturbances 
@@ -112,7 +113,7 @@
             disturbances (up to 35.7%) in the mass and inertia of the quadcopters. We perform an 
             extensive evaluation in both simulation and physical worlds, where we outperform a 
             state-of-the-art learning-based adaptive controller and a traditional PID controller 
-            specifically tuned to each platform individually. 
+            specifically tuned to each platform individually.  -->
             <!-- This paper proposes a universal adaptive low-controller for quadcopters which can be deployed 
             zero-shot to quadcopters of very different mass and arm lengths, and also shows rapid adaptation 
             to unknown payloads during runtime. The core algorithmic idea is to learn a single policy which 
